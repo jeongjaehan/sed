@@ -71,7 +71,7 @@ body {
 						<label>newaddrs:</label><input class="span1" type="text" placeholder="newaddrs" value="10" id="newaddrs">
 						<label>option:</label><input class="span1" type="text" placeholder="option" value="1" id="option">
 						<br/>
-						<label>Query:</label><input type="text" class="input-xlarge search-query" placeholder="검색어를 입력하세요." id="Query" value="중국집">
+						<label>Query:</label><input type="text" class="input-xlarge" placeholder="검색어를 입력하세요." id="Query" value="중국집">
 						<button type="button" class="btn" id="btnSearch">결과확인</button>
 					</div>
 					
@@ -113,11 +113,11 @@ body {
 		function addRow(item){
 		   var rows =  $("#searchTable tr");
 		   var idx = rows.length;
-		   console.log("idx : %d",idx);
+		   //console.log("idx : %d",idx);
 		   
 		   //http://wiki.kthcorp.com/pages/viewpage.action?pageId=26718600
 		   $("#searchTable").append(
-		    "<tr id='id_"+idx+"'>"
+		    "<tr id='id_"+idx+"' class='rows'>"
 		     +"<td>"+item.DOCID+"</td>"
 		     +"<td>"+item.NAME+"</td>"
 		     +"<td>"+item.UJ_NAME+"</td>"
@@ -133,13 +133,8 @@ body {
 		* 모든 row 삭제
 		*/
 		function deleteAllRow(){
-		   var rows = $("#searchTable tr");
-		    $.each(rows, function(i,row){
-		    	console.log("del row -> id: %o , i : %d",row,i);
-		    	if(i!=0){
-   			     	row.remove();
-		    	}
-		    });
+		   var rows = $(".rows");
+		   rows.remove();
   		}
 		
 		function getJsonData(){
@@ -161,7 +156,7 @@ body {
 					
 					if(place.TotalCount==0){ // 검색결과 없음
 						   $("#searchTable").append(
-								    "<tr class='info'>"
+								    "<tr class='rows info'>"
 								     +"<td colspan=10>검색결과 없음</td>"
 								    +"</tr>"
 						   );
