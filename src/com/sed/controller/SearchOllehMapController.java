@@ -23,28 +23,27 @@ import com.sed.service.SearchOllehMapService;
 
 
 @Controller
-@RequestMapping("/apis/search/imin")
-public class SearchIminController {
-
+@RequestMapping("/apis/search/ollehmap")
+public class SearchOllehMapController {
 	/**
 	 * 로거
 	 */
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	@Autowired SearchIminService searchIminService;
+	
+	@Autowired SearchOllehMapService searchOllehMapService;
 	@Autowired MessageSourceAccessor messageSourceAccessor;
-
+	
 	@RequestMapping(method=RequestMethod.GET)
-	public JSONObject searchImin(HttpServletRequest request, HttpServletResponse response , ServletOutputStream out)throws Exception
+	public JSONObject searchOllemap(HttpServletRequest request, HttpServletResponse response , ServletOutputStream out)throws Exception
 	{
 		Map<String, String[]> params = request.getParameterMap();
-
-		JSONObject returnJson = searchIminService.doSearch(params);
+		
+		JSONObject returnJson = searchOllehMapService.doSearch(params);
 		logger.info("jsonObject : {}",returnJson);
 		return returnJson;
-
 	}
-	
+
+
 	/**
 	 * Exception 처리 
 	 * @param e

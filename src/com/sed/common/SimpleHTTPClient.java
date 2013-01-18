@@ -373,6 +373,7 @@ public class SimpleHTTPClient implements ResponseHandler<byte[]>
 	public JSONObject execReturnJSONObject(String reqCharset, String rspCharset)
 	{
 		String resultString = exec(reqCharset, rspCharset);
+		resultString = resultString.replaceAll(":null", ":\"null\"");
 		return JSONObject.fromObject(resultString);
 	}
 	

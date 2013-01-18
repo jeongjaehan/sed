@@ -13,9 +13,9 @@ import com.sed.common.Define;
 import com.sed.common.SimpleHTTPClient;
 
 @Service
-public class SearchIminService {
+public class SearchOllehMapService {
 	
-	@Value("#{applicationProperties['search.imin.url']}")				private String url ;
+	@Value("#{applicationProperties['search.ollehmap.url']}")				private String url ;
 	@Value("#{applicationProperties['http.connectionTimeoutMillis']}")	private int connectionTimeoutMillis ;
 	@Value("#{applicationProperties['http.socketReadTimeoutMillis']}")	private int socketReadTimeoutMillis ;
 	
