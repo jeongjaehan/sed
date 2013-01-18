@@ -31,7 +31,6 @@ body {
 <!-- left menu -->
 <%@include file="inc/left_menu.jsp" %>
 	        
-	        		
 			<div class="span9">
 				<form class="form-search">
 					<div class="hero-unit">
