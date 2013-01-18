@@ -70,8 +70,13 @@ body {
 						<label>list_cnt:</label><input class="span1" type="text" placeholder="list_cnt" value="10" id="list_cnt">
 						<label>pg:</label><input class="span1" type="text" placeholder="pg" value="1" id="pg">
 						<label>pivot:</label><input class="span1" type="text" placeholder="pivot" value="20000" id="pivot">
-						<label>csort:</label><input class="span1" type="text" placeholder="csort" value="DIS" id="csort">
-						<label>f :</label><input class="span1" type="text" placeholder="f" value="j" id="f">
+						<label>csort:</label>
+						<select class="span2" id="csort">
+                			<option value="RANK" selected="selected">RANK</option>
+			                <option value="DIS">DIS</option>
+			                <option value="DATE">DATE</option>
+		              	</select>						
+						<label>f :</label><input class="span1" type="text" placeholder="f" value="j" id="f" readonly="readonly">
 						<br/>
 						<label>Query:</label><input type="text" class="input-xlarge" placeholder="검색어를 입력하세요." id="Query" value="중국집">
 						<button type="button" class="btn" id="btnSearch">결과확인</button>
