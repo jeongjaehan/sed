@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="euc-kr"?>
+
+<project name="Sed" default="war" basedir=".">
+
+<!-- ===================== Property Definitions =========================== -->
+	
+	<!-- webapp properties -->
+	
+	<property name="app.name"					value="Sed"/>
+	<property name="app.path"					value="/${app.name}"/>
+	<property name="app.home.dir"				value="WebContent"/>
+	
+	<property name="dist.dir"					value="dist"/>
+	
+	<property name="war.dir"					value="war"/>
+	<property name="war.name"					value="${war.dir}/${app.name}.war"/>
+	<property name="war.backup.dir"				value="backup"/>
+	<property name="manager.username"			value="k2"/>
+	<property name="manager.password"			value="dnsdudja!()"/>
+
+	<property name="url.etriisc07"				value="http://211.113.53.187:8080/manager/text"/> 	<!--테스트-->
+	
+	
+<!--  ========================== Catalina Task Definition ========================== -->
+
+	<taskdef name="list" classname="org.apache.catalina.ant.ListTask" />
+	<taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask" /> 
+	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask" /> 
+	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask" /> 	
+	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask" /> 	
+	
+	
+<!-- ==================== Copy WebContent Dir ================================== -->	
+
+	<target name="dist" description="Copy WebContent Dir" >
+		
+		<!-- copy WebContent Dir -->
+		<delete dir="${dist.dir}"/>		
+		<mkdir dir="${dist.dir}"/>	
+		<copy todir="${dist.dir}">
+			<fileset dir="${app.home.dir}"/>
+		</copy>
+		
+	</target>
+	
+	
+<!-- ==================== Make War ================================== -->	
+
+	<target name="war" description="Make War" >
+		<delete dir="${war.dir}"/>
+		<mkdir dir="${war.dir}"/>	
+		<jar jarfile="${war.name}" basedir="${dist.dir}"/>
+	</target>
+	
+	
+<!-- ==================== Install Target (etriisc07) ===================== -->	
+	<target name="install-etriisc07"
+		depends="dist,war"
+			description="upload(etriisc07)">
+		
+			<deploy url="${url.etriisc07}"
+					username="${manager.username}"
+					password="${manager.password}"
+					path="${app.path}"
+					war="${war.name}"
+					update="true"/>
+	</target>
+	
+</project>
