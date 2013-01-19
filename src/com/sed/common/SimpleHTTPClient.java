@@ -321,8 +321,8 @@ public class SimpleHTTPClient implements ResponseHandler<byte[]>
 			logBuffer.append(SystemUtils.LINE_SEPARATOR).append("---------------------------------------------").append(SystemUtils.LINE_SEPARATOR).append(errResult);
 		}
 		
-		log.info(logBuffer);
 		log.info(logBuffer2);
+//		log.info(logBuffer2);
 	}
 
 	/**

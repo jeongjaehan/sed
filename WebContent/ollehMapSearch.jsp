@@ -119,7 +119,7 @@ body {
 				  },
 				  function(data) {
 					place = data.RESULTDATA.place;
-					console.log(place);
+					//console.log(place);
 					$("#skeyword").text("["+data.RESULTDATA.QueryResult.Querystr+"] 에 대한 결과");
 					$("#totalcnt").text("["+place.TotalCount+"] 건 검색됨");
 					
