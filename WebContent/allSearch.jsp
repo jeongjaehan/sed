@@ -21,6 +21,16 @@ body {
 .sidebar-nav {
 	padding: 9px 0;
 }
+
+.loading {
+  border:0;
+  display:none;
+  text-align: center;
+  background: #FFFFF0;
+  filter: alpha(opacity=60);
+  opacity: alpha*0.6;
+}
+
 </style>
 </head>
 <body>
@@ -92,7 +102,17 @@ body {
 			</div>
 		</div>
 	</div>
-	
+
+	<div id="loading1" class="loading">
+		<img src="public/img/ajax-loader.gif" />
+	</div>
+	<div id="loading2" class="loading">
+		<img src="public/img/ajax-loader.gif" />
+	</div>
+	<div id="loading3" class="loading">
+		<img src="public/img/ajax-loader.gif" />
+	</div>
+
 	<footer>
 		<p>&copy; kthcorp 2013</p>
 	</footer>
@@ -127,68 +147,110 @@ body {
 		* 아임인 검색 api 호출 return json 
 		*/
 		function getJsonDataImin(){
-			$.getJSON(iminUrl,
-				  {
-					loc_x: $('#X').val(),
-					loc_y: $('#Y').val(),
-					loc_range: $('#loc_range').val(),
-					list_cnt: $('#places').val(),
-					pg: $('#pg').val(),
-					pivot: $('#pivot').val(),
-					csort: $('#csort').val(),
-				    f: $('#f').val(),
-				    Query: $('#Query').val()
-				  },
-				  function(data) {
-					$("#keyword1").text("["+data.Query+"] 에 대한 결과");
-					$("#totalcnt1").text("["+data.totalcnt+"] 건 검색됨");
-					
-					if(data.totalcnt==0){ // 검색결과 없음
-						   $("#searchTable1").append(
-								    "<tr class='rows info'>"
-								     +"<td colspan=10>검색결과 없음</td>"
-								    +"</tr>"
-						   );
-					}else{
-					    $.each(data.items, function(i,item){
-					    	addRow(item,"searchTable1");
-					    });
+			$.ajax({
+					url : iminUrl
+					, dataType : 'json'
+					, data :  {
+						loc_x: $('#X').val(),
+						loc_y: $('#Y').val(),
+						loc_range: $('#loc_range').val(),
+						list_cnt: $('#places').val(),
+						pg: $('#pg').val(),
+						pivot: $('#pivot').val(),
+						csort: $('#csort').val(),
+					    f: $('#f').val(),
+					    Query: $('#Query').val()
+				  	}
+					, error:function(xhr,status,e){       //에러 발생시 처리함수
+						alert('Error');
+					}
+				  	, success : function(data) {
+						$("#keyword1").text("["+data.Query+"] 에 대한 결과");
+						$("#totalcnt1").text("["+data.totalcnt+"] 건 검색됨");
+						
+						if(data.totalcnt==0){ // 검색결과 없음
+							   $("#searchTable1").append(
+									    "<tr class='rows info'>"
+									     +"<td colspan=10>검색결과 없음</td>"
+									    +"</tr>"
+							   );
+						}else{
+						    $.each(data.items, function(i,item){
+						    	addRow(item,"searchTable1");
+						    });
+					  }
 				  }
-			  });
+				  , beforeSend: function() {
+						var padingTop = (Number(($('#searchTable1').css('height')).replace("px","")) / 2) - 20;
+						//통신을 시작할때 처리
+						$('#loading1').css('position', 'absolute');
+						$('#loading1').css('left', $('#searchTable1').offset().left);
+						$('#loading1').css('top', $('#searchTable1').offset().top);
+						$('#loading1').css('width', $('#searchTable1').css('width'));
+						$('#loading1').css('height', $('#searchTable1').css('height'));
+						$('#loading1').css('padding-top', padingTop);
+						$('#loading1').show().fadeIn('fast');
+					}
+					, complete: function() {
+						//통신이 완료된 후 처리
+						$('#loading1').fadeOut();
+					}
+			});
 		}
 		
 		/*
 		* 올레맵 검색 api 호출 return json 
 		*/
 		function getJsonDataOllehmap(){
-			$.getJSON(ollemapUrl,
-				  {
-					X: $('#X').val(),
-					Y: $('#Y').val(),
-					places: $('#places').val(),
-					addrs: $('#addrs').val(),
-					newaddrs: $('#newaddrs').val(),
-					option: $('#option').val(),
-				    Query: $('#Query').val()
-				  },
-				  function(data) {
-					place = data.RESULTDATA.place;
-					//console.log(place);
-					$("#keyword2").text("["+data.RESULTDATA.QueryResult.Querystr+"] 에 대한 결과");
-					$("#totalcnt2").text("["+place.TotalCount+"] 건 검색됨");
-					
-					if(place.TotalCount==0){ // 검색결과 없음
-						   $("#searchTable2").append(
-								    "<tr class='rows info'>"
-								     +"<td colspan=10>검색결과 없음</td>"
-								    +"</tr>"
-						   );
-					}else{
-					    $.each(place.Data, function(i,item){
-					    	addRow(item,"searchTable2");
-					    }); 
-				  	}
-			  });
+			$.ajax({
+					url : ollemapUrl
+					, dataType : 'json'
+					, data :  {					
+						X: $('#X').val(),
+						Y: $('#Y').val(),
+						places: $('#places').val(),
+						addrs: $('#addrs').val(),
+						newaddrs: $('#newaddrs').val(),
+						option: $('#option').val(),
+					    Query: $('#Query').val()
+					  }
+					  , error:function(xhr,status,e){       //에러 발생시 처리함수
+							alert('Error');
+					  }
+					  , success : function(data) {
+						place = data.RESULTDATA.place;
+						//console.log(place);
+						$("#keyword2").text("["+data.RESULTDATA.QueryResult.Querystr+"] 에 대한 결과");
+						$("#totalcnt2").text("["+place.TotalCount+"] 건 검색됨");
+						
+						if(place.TotalCount==0){ // 검색결과 없음
+							   $("#searchTable2").append(
+									    "<tr class='rows info'>"
+									     +"<td colspan=10>검색결과 없음</td>"
+									    +"</tr>"
+							   );
+						}else{
+						    $.each(place.Data, function(i,item){
+						    	addRow(item,"searchTable2");
+						    }); 
+					  	}
+				  	  }
+					  , beforeSend: function() {
+							var padingTop = (Number(($('#searchTable2').css('height')).replace("px","")) / 2) - 20;
+							//통신을 시작할때 처리
+							$('#loading2').css('position', 'absolute');
+							$('#loading2').css('left', $('#searchTable2').offset().left);
+							$('#loading2').css('top', $('#searchTable2').offset().top);
+							$('#loading2').css('width', $('#searchTable2').css('width'));
+							$('#loading2').css('height', $('#searchTable2').css('height'));
+							$('#loading2').css('padding-top', padingTop);
+							$('#loading2').show().fadeIn('fast');
+						}
+						, complete: function() {
+							//통신이 완료된 후 처리
+							$('#loading2').fadeOut();
+						}			  
+			});
 		}
 		
 		

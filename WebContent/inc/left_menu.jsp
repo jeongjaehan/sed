@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-	        <div class="span2">
+	        <div class="span1">
 	          <div class="well sidebar-nav">
 	            <ul class="nav nav-list">
 	              <li class="nav-header">Sidebar</li>
