@@ -55,7 +55,7 @@ public class SearchIminController {
 	public JSONObject handleException(Exception e, HttpServletRequest request, HttpServletResponse response){
 		JSONObject retJsonObj = null;
 		try {
-			String errorJson = messageSourceAccessor.getMessage("error.api.search.unkownerror");
+			String errorJson = messageSourceAccessor.getMessage("error.api.search.unkownerror.json");
 			retJsonObj = JSONObject.fromObject(errorJson.toString());
 		} catch (Exception ex) {
 			logger.error(ex.getMessage(),ex);

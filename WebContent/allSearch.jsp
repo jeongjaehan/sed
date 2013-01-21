@@ -64,7 +64,7 @@ body {
 						<button type="button" class="btn" id="btnSearch">결과확인</button>
 					</div>
 					
-					<div class="span4">
+					<div class="span3">
 							<label>
 								<b>아임인 검색</b>
 								<span id="keyword1"></span> 
@@ -74,14 +74,14 @@ body {
 								<tr>
 									<th>no</th>
 									<th>NAME</th>
-									<th>X</th>
-									<th>Y</th>
+									<!-- <th>X</th> -->
+									<!-- <th>Y</th> -->
 									<th>TEL</th>
 								</tr>
 							</table>
 					</div>
 					
-					<div class="span4">
+					<div class="span3">
 							<label>
 								<b>올레맵 검색</b>
 								<span id="keyword2"></span> 
@@ -91,8 +91,25 @@ body {
 								<tr>
 									<th>no</th>
 									<th>NAME</th>
-									<th>X</th>
-									<th>Y</th>
+									<!-- <th>X</th> -->
+									<!-- <th>Y</th> -->
+									<th>TEL</th>
+								</tr>
+							</table>
+					</div>
+					
+					<div class="span3">
+							<label>
+								<b>에트리 검색</b>
+								<span id="keyword3"></span> 
+								<span id="totalcnt3"></span>
+							</label>
+							<table class="table table-hover" id="searchTable3">
+								<tr>
+									<th>no</th>
+									<th>NAME</th>
+									<!-- <th>X</th> -->
+									<!-- <th>Y</th> -->
 									<th>TEL</th>
 								</tr>
 							</table>
@@ -120,24 +137,24 @@ body {
 	<!-- script area -->
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript">
+	
+		// api url 정의 
 		var iminUrl="/Sed/apis/search/imin";
 		var ollemapUrl="/Sed/apis/search/ollehmap";
+		var etriUrl="http://211.113.53.187:8080/MobileQA/apis/1/search";
 		
 		/*
 		* add table row
 		*/
-		function addRow(item,tid){
-		   var rows =  $("#"+tid+" tr");
-		   var idx = rows.length;
-			//console.log("idx : %d",idx);
-		   
+		function addRow(idx, item, tbl){
+			idx = idx+1;
 		   //http://wiki.kthcorp.com/pages/viewpage.action?pageId=26718600
-		   $("#"+tid+"").append(
+		   tbl.append(
 		    "<tr id='id_"+idx+"' class='rows'>"
 		     +"<td>"+idx+"</td>"
 		     +"<td>"+item.NAME+"</td>"
-		     +"<td>"+item.X+"</td>"
-		     +"<td>"+item.Y+"</td>"
+		     //+"<td>"+item.X+"</td>"
+		     //+"<td>"+item.Y+"</td>"
 		     +"<td>"+item.TEL+"</td>"
 		    +"</tr>"
 		   );
@@ -147,6 +164,7 @@ body {
 		* 아임인 검색 api 호출 return json 
 		*/
 		function getJsonDataImin(){
+			var tbl = $('#searchTable1');
 			$.ajax({
 					url : iminUrl
 					, dataType : 'json'
@@ -162,32 +180,36 @@ body {
 					    Query: $('#Query').val()
 				  	}
 					, error:function(xhr,status,e){       //에러 발생시 처리함수
-						alert('Error');
+						tbl.append(
+							    "<tr class='rows error'>"
+							     +"<td colspan=10>오류 발생!! 관리자에게 문의하세요.</td>"
+							    +"</tr>"
+					   );
 					}
 				  	, success : function(data) {
 						$("#keyword1").text("["+data.Query+"] 에 대한 결과");
 						$("#totalcnt1").text("["+data.totalcnt+"] 건 검색됨");
 						
 						if(data.totalcnt==0){ // 검색결과 없음
-							   $("#searchTable1").append(
+								tbl.append(
 									    "<tr class='rows info'>"
 									     +"<td colspan=10>검색결과 없음</td>"
 									    +"</tr>"
 							   );
 						}else{
-						    $.each(data.items, function(i,item){
-						    	addRow(item,"searchTable1");
+						    $.each(data.items, function(idx,item){
+						    	addRow(idx,item,tbl);
 						    });
 					  }
 				  }
 				  , beforeSend: function() {
-						var padingTop = (Number(($('#searchTable1').css('height')).replace("px","")) / 2) - 20;
+						var padingTop = (Number((tbl.css('height')).replace("px","")) / 2) - 20;
 						//통신을 시작할때 처리
 						$('#loading1').css('position', 'absolute');
-						$('#loading1').css('left', $('#searchTable1').offset().left);
-						$('#loading1').css('top', $('#searchTable1').offset().top);
-						$('#loading1').css('width', $('#searchTable1').css('width'));
-						$('#loading1').css('height', $('#searchTable1').css('height'));
+						$('#loading1').css('left', tbl.offset().left);
+						$('#loading1').css('top', tbl.offset().top);
+						$('#loading1').css('width', tbl.css('width'));
+						$('#loading1').css('height', tbl.css('height'));
 						$('#loading1').css('padding-top', padingTop);
 						$('#loading1').show().fadeIn('fast');
 					}
@@ -202,6 +224,8 @@ body {
 		* 올레맵 검색 api 호출 return json 
 		*/
 		function getJsonDataOllehmap(){
+			var tbl = $('#searchTable2');
+			
 			$.ajax({
 					url : ollemapUrl
 					, dataType : 'json'
@@ -215,7 +239,11 @@ body {
 					    Query: $('#Query').val()
 					  }
 					  , error:function(xhr,status,e){       //에러 발생시 처리함수
-							alert('Error');
+							tbl.append(
+								    "<tr class='rows error'>"
+								     +"<td colspan=10>오류 발생!! 관리자에게 문의하세요.</td>"
+								    +"</tr>"
+						   );
 					  }
 					  , success : function(data) {
 						place = data.RESULTDATA.place;
@@ -224,25 +252,25 @@ body {
 						$("#totalcnt2").text("["+place.TotalCount+"] 건 검색됨");
 						
 						if(place.TotalCount==0){ // 검색결과 없음
-							   $("#searchTable2").append(
+								tbl.append(
 									    "<tr class='rows info'>"
 									     +"<td colspan=10>검색결과 없음</td>"
 									    +"</tr>"
 							   );
 						}else{
-						    $.each(place.Data, function(i,item){
-						    	addRow(item,"searchTable2");
+						    $.each(place.Data, function(idx,item){
+						    	addRow(idx,item,tbl);
 						    }); 
 					  	}
 				  	  }
 					  , beforeSend: function() {
-							var padingTop = (Number(($('#searchTable2').css('height')).replace("px","")) / 2) - 20;
+							var padingTop = (Number((tbl.css('height')).replace("px","")) / 2) - 20;
 							//통신을 시작할때 처리
 							$('#loading2').css('position', 'absolute');
-							$('#loading2').css('left', $('#searchTable2').offset().left);
-							$('#loading2').css('top', $('#searchTable2').offset().top);
-							$('#loading2').css('width', $('#searchTable2').css('width'));
-							$('#loading2').css('height', $('#searchTable2').css('height'));
+							$('#loading2').css('left', tbl.offset().left);
+							$('#loading2').css('top', tbl.offset().top);
+							$('#loading2').css('width', tbl.css('width'));
+							$('#loading2').css('height', tbl.css('height'));
 							$('#loading2').css('padding-top', padingTop);
 							$('#loading2').show().fadeIn('fast');
 						}
@@ -250,6 +278,74 @@ body {
 							//통신이 완료된 후 처리
 							$('#loading2').fadeOut();
 						}			  
+			});
+		}
+		
+		/*
+		* etri 검색 api 호출 return json 
+		*/
+		function getXmlDataEtri(){
+			var tbl = $('#searchTable3');
+			$.ajax({
+					url : etriUrl
+					, dataType : 'xml'
+					, data :  {					
+						X: $('#X').val(),
+						Y: $('#Y').val(),
+						n: $('#places').val(),
+					    q: $('#Query').val()
+					  }
+					  , error:function(xhr,status,e){       //에러 발생시 처리함수
+							tbl.append(
+								    "<tr class='rows error'>"
+								     +"<td colspan=10>오류 발생!! 관리자에게 문의하세요.</td>"
+								    +"</tr>"
+						   );
+					  }
+					  , success : function(data) {
+						    query = $(data).find("QUERY").text();
+						    totalCount = $(data).find("TotalCount").text();
+						    
+							$("#keyword3").text("["+query+"] 에 대한 결과");
+							$("#totalcnt3").text("["+totalCount+"] 건 검색됨");
+							
+							
+							if($(data).find("Data").size()==0){ // 검색결과 없음
+								tbl.append(
+									    "<tr class='rows info'>"
+									     +"<td colspan=10>검색결과 없음</td>"
+									    +"</tr>"
+							   );
+							}else{
+							    $.each($(data).find("Data"), function(idx,item){
+							    	
+							    	//console.log($(item).find("NM").text());
+							    	//console.log($(item).find("PN").text());
+							    	//http://211.113.53.187:8080/MobileQA/apis/1/search?q=중국집&p=1&n=1
+							    	_item = {
+							    				NAME : $(item).find("NM").text()
+							    				,TEL : $(item).find("PN").text()
+							    			};
+							    	//console.log(_item);
+							    	addRow(idx, _item, tbl);
+							    }); 
+						  	}
+					  	  }
+						  , beforeSend: function() {
+								var padingTop = (Number((tbl.css('height')).replace("px","")) / 2) - 20;
+								//통신을 시작할때 처리
+								$('#loading3').css('position', 'absolute');
+								$('#loading3').css('left', tbl.offset().left);
+								$('#loading3').css('top', tbl.offset().top);
+								$('#loading3').css('width', tbl.css('width'));
+								$('#loading3').css('height', tbl.css('height'));
+								$('#loading3').css('padding-top', padingTop);
+								$('#loading3').show().fadeIn('fast');
+							}
+							, complete: function() {
+								//통신이 완료된 후 처리
+								$('#loading3').fadeOut();
+							}								  
 			});
 		}
 		
@@ -269,8 +365,11 @@ body {
 			deleteAllRow();	// 모든 검색 row 삭제
 			getJsonDataImin();	// 아임인 검색 api 호출 
 			getJsonDataOllehmap();	// 올래멥 검색 api 호출
+			getXmlDataEtri();	// etri 검색 api 호출
 		}
 	
+		
+		// jquery event handler
 		$('#btnSearch').click(function (){
 			doSearch();
 		});
