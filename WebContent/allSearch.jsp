@@ -296,6 +296,9 @@ body {
 					    q: $('#Query').val()
 					  }
 					  , error:function(xhr,status,e){       //에러 발생시 처리함수
+						  	console.log(xhr);
+						  	console.log(status);
+						  	console.log(e);
 							tbl.append(
 								    "<tr class='rows error'>"
 								     +"<td colspan=10>오류 발생!! 관리자에게 문의하세요.</td>"
@@ -379,7 +382,26 @@ body {
 			if(e.keyCode==13)
 				doSearch();
 		});
-
+	
+		
+		/*
+		* 메뉴 선택 
+		*/
+		$(document).ready(function(){
+			url = document.URL;
+			url = url.substring(url.lastIndexOf("/")+1,url.length);
+			
+			if(url=="iminSearch.jsp"){
+				$('.menu1').addClass("active");
+			}else if(url=="ollehMapSearch.jsp"){
+				$('.menu2').addClass("active");
+			}else if(url=="etriSearch.jsp"){
+				$('.menu3').addClass("active");
+			}else if(url=="allSearch.jsp"){
+				$('.menu4').addClass("active");
+			}
+		});
+		
 	</script>
 </body>
 </html>

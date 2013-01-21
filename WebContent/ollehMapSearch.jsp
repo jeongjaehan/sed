@@ -152,6 +152,23 @@ body {
 				doSearch();
 		});
 
+		/*
+		* 메뉴 선택 
+		*/
+		$(document).ready(function(){
+			url = document.URL;
+			url = url.substring(url.lastIndexOf("/")+1,url.length);
+			
+			if(url=="iminSearch.jsp"){
+				$('.menu1').addClass("active");
+			}else if(url=="ollehMapSearch.jsp"){
+				$('.menu2').addClass("active");
+			}else if(url=="etriSearch.jsp"){
+				$('.menu3').addClass("active");
+			}else if(url=="allSearch.jsp"){
+				$('.menu4').addClass("active");
+			}
+		});
 	</script>
 </body>
 </html>
