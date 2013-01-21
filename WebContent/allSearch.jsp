@@ -290,15 +290,12 @@ body {
 					url : etriUrl
 					, dataType : 'xml'
 					, data :  {					
-						X: $('#X').val(),
-						Y: $('#Y').val(),
+						cur_x: $('#X').val(),
+						cur_y: $('#Y').val(),
 						n: $('#places').val(),
 					    q: $('#Query').val()
 					  }
 					  , error:function(xhr,status,e){       //에러 발생시 처리함수
-						  	console.log(xhr);
-						  	console.log(status);
-						  	console.log(e);
 							tbl.append(
 								    "<tr class='rows error'>"
 								     +"<td colspan=10>오류 발생!! 관리자에게 문의하세요.</td>"
