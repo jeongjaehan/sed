@@ -64,55 +64,57 @@ body {
 						<button type="button" class="btn" id="btnSearch">결과확인</button>
 					</div>
 					
-					<div class="span3">
-							<label>
-								<b>아임인 검색</b>
-								<span id="keyword1"></span> 
-								<span id="totalcnt1"></span>
-							</label>
-							<table class="table table-hover" id="searchTable1">
-								<tr>
-									<th>no</th>
-									<th>NAME</th>
-									<!-- <th>X</th> -->
-									<!-- <th>Y</th> -->
-									<th>TEL</th>
-								</tr>
-							</table>
-					</div>
-					
-					<div class="span3">
-							<label>
-								<b>올레맵 검색</b>
-								<span id="keyword2"></span> 
-								<span id="totalcnt2"></span>
-							</label>
-							<table class="table table-hover" id="searchTable2">
-								<tr>
-									<th>no</th>
-									<th>NAME</th>
-									<!-- <th>X</th> -->
-									<!-- <th>Y</th> -->
-									<th>TEL</th>
-								</tr>
-							</table>
-					</div>
-					
-					<div class="span3">
-							<label>
-								<b>에트리 검색</b>
-								<span id="keyword3"></span> 
-								<span id="totalcnt3"></span>
-							</label>
-							<table class="table table-hover" id="searchTable3">
-								<tr>
-									<th>no</th>
-									<th>NAME</th>
-									<!-- <th>X</th> -->
-									<!-- <th>Y</th> -->
-									<th>TEL</th>
-								</tr>
-							</table>
+					<div class="row-fluid">
+						<div class="span3">
+								<label>
+									<b>아임인 검색</b>
+									<span id="keyword1"></span> 
+									<span id="totalcnt1"></span>
+								</label>
+								<table class="table table-hover" id="searchTable1">
+									<tr>
+										<th>no</th>
+										<th>NAME</th>
+										<!-- <th>X</th> -->
+										<!-- <th>Y</th> -->
+										<th>TEL</th>
+									</tr>
+								</table>
+						</div>
+						
+						<div class="span3">
+								<label>
+									<b>올레맵 검색</b>
+									<span id="keyword2"></span> 
+									<span id="totalcnt2"></span>
+								</label>
+								<table class="table table-hover" id="searchTable2">
+									<tr>
+										<th>no</th>
+										<th>NAME</th>
+										<!-- <th>X</th> -->
+										<!-- <th>Y</th> -->
+										<th>TEL</th>
+									</tr>
+								</table>
+						</div>
+						
+						<div class="span3">
+								<label>
+									<b>에트리 검색</b>
+									<span id="keyword3"></span> 
+									<span id="totalcnt3"></span>
+								</label>
+								<table class="table table-hover" id="searchTable3">
+									<tr>
+										<th>no</th>
+										<th>NAME</th>
+										<!-- <th>X</th> -->
+										<!-- <th>Y</th> -->
+										<th>TEL</th>
+									</tr>
+								</table>
+						</div>
 					</div>
 
 				</form>
@@ -209,7 +211,7 @@ body {
 						$('#loading1').css('left', tbl.offset().left);
 						$('#loading1').css('top', tbl.offset().top);
 						$('#loading1').css('width', tbl.css('width'));
-						$('#loading1').css('height', tbl.css('height'));
+						$('#loading1').css('height', "100%");
 						$('#loading1').css('padding-top', padingTop);
 						$('#loading1').show().fadeIn('fast');
 					}
@@ -270,7 +272,7 @@ body {
 							$('#loading2').css('left', tbl.offset().left);
 							$('#loading2').css('top', tbl.offset().top);
 							$('#loading2').css('width', tbl.css('width'));
-							$('#loading2').css('height', tbl.css('height'));
+							$('#loading2').css('height', "100%");
 							$('#loading2').css('padding-top', padingTop);
 							$('#loading2').show().fadeIn('fast');
 						}
@@ -338,7 +340,7 @@ body {
 								$('#loading3').css('left', tbl.offset().left);
 								$('#loading3').css('top', tbl.offset().top);
 								$('#loading3').css('width', tbl.css('width'));
-								$('#loading3').css('height', tbl.css('height'));
+								$('#loading3').css('height', "100%");
 								$('#loading3').css('padding-top', padingTop);
 								$('#loading3').show().fadeIn('fast');
 							}

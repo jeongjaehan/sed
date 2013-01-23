@@ -11,7 +11,7 @@
 				
 				<div class="nav-collapse collapse">
 					<p class="navbar-text pull-right">
-						Logged in as <a href="#" class="navbar-link">Administartor</a>
+						해당 페이지는 크롬 브라우져에 최적화 되어있습니다.
 					</p>
 					<ul class="nav">
 						<li class="active"><a href="index.jsp">Home</a></li>

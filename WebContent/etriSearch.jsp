@@ -158,7 +158,7 @@ body {
 							    				,UJ_NAME : $(item).find("UJ").text()
 							    				,X : $(item).find("PX").text()
 							    				,Y : $(item).find("PY").text()
-							    				,DOCID : $(item).find("DOCID").text()
+							    				,DOCID : $(item).find("ORGID").text()
 							    			};
 							    	addRow(_item);
 							    }); 
