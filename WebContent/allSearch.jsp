@@ -65,7 +65,8 @@ body {
 					</div>
 					
 					<div class="row-fluid">
-						<div class="span3">
+					
+						<div class="span3" style="width: 30%;font-size:12px;">
 								<label>
 									<b>아임인 검색</b>
 									<span id="keyword1"></span> 
@@ -77,12 +78,13 @@ body {
 										<th>NAME</th>
 										<!-- <th>X</th> -->
 										<!-- <th>Y</th> -->
+										<th>UJ</th>
 										<th>TEL</th>
 									</tr>
 								</table>
 						</div>
 						
-						<div class="span3">
+						<div class="span3" style="width: 30%;font-size:12px;">
 								<label>
 									<b>올레맵 검색</b>
 									<span id="keyword2"></span> 
@@ -94,12 +96,13 @@ body {
 										<th>NAME</th>
 										<!-- <th>X</th> -->
 										<!-- <th>Y</th> -->
+										<th>UJ</th>
 										<th>TEL</th>
 									</tr>
 								</table>
 						</div>
 						
-						<div class="span3">
+						<div class="span3" style="width: 30%;font-size:12px;">
 								<label>
 									<b>에트리 검색</b>
 									<span id="keyword3"></span> 
@@ -111,6 +114,7 @@ body {
 										<th>NAME</th>
 										<!-- <th>X</th> -->
 										<!-- <th>Y</th> -->
+										<th>UJ</th>
 										<th>TEL</th>
 									</tr>
 								</table>
@@ -151,16 +155,22 @@ body {
 		function addRow(idx, item, tbl){
 			idx = idx+1;
 		   //http://wiki.kthcorp.com/pages/viewpage.action?pageId=26718600
-		   tbl.append(
-		    "<tr id='id_"+idx+"' class='rows'>"
-		     +"<td>"+idx+"</td>"
-		     +"<td>"+item.NAME+"</td>"
-		     //+"<td>"+item.X+"</td>"
-		     //+"<td>"+item.Y+"</td>"
-		     +"<td>"+item.TEL+"</td>"
-		    +"</tr>"
-		   );
-	  	}
+		    uj_name = item.UJ_NAME;
+			start = uj_name.lastIndexOf(">") + 1;
+			end = uj_name.length;
+			uj_name = uj_name.substring(start,end);	// 업종 소분류만 자르기 
+			
+		    tbl.append(
+			    "<tr id='id_"+idx+"' class='rows'>"
+			     +"<td>"+idx+"</td>"
+			     +"<td>"+item.NAME+"</td>"
+			     +"<td>"+uj_name+"</td>"
+			     //+"<td>"+item.X+"</td>"
+			     //+"<td>"+item.Y+"</td>"
+			     +"<td>"+item.TEL+"</td>"
+			    +"</tr>"
+		    );
+	  	 }
 		
 		/*
 		* 아임인 검색 api 호출 return json 
@@ -327,6 +337,7 @@ body {
 							    	_item = {
 							    				NAME : $(item).find("NM").text()
 							    				,TEL : $(item).find("PN").text()
+							    				,UJ_NAME : $(item).find("UJ").text()
 							    			};
 							    	//console.log(_item);
 							    	addRow(idx, _item, tbl);
