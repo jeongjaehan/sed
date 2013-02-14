@@ -147,7 +147,8 @@ body {
 		// api url 정의 
 		var iminUrl="/Sed/apis/search/imin";
 		var ollemapUrl="/Sed/apis/search/ollehmap";
-		var etriUrl="http://211.113.53.187:8080/MobileQA/apis/1/search";
+		var etriUrl="http://211.113.53.187:8080/MobileQA/apis/1/search"; // test 
+		//var etriUrl="http://mqalocal.paran.com:8080/MobileQA/apis/1/search"; // real 
 		
 		/*
 		* add table row
